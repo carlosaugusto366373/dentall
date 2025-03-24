@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore nossa seleção de produtos de alta qualidade para sua clínica ou consultório.">
+    <meta name="keywords" content="produtos, dental, clínica, consultório, saúde">
+    <title>Dental Helyon - Produtos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Travar rolagem horizontal */
+        html, body {
+            overflow-x: hidden; /* Impede o scroll horizontal */
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        header {
+            background: #2d6a4f; /* Verde mais forte */
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column; /* Muda para coluna em telas menores */
+            align-items: center; /* Centraliza os itens */
+        }
+        .logo {
+            max-width: 120px;
+            height: auto;
+        }
+        nav {
+            display: flex;
+            flex-direction: column; /* Muda para coluna em telas menores */
+            align-items: center; /* Centraliza os itens */
+            margin: 10px 0; /* Margem entre logo e nav */
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column; /* Muda para coluna em telas menores */
+            align-items: center; /* Centraliza os itens */
+        }
+        nav ul li {
+            margin: 5px 0; /* Margem vertical */
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .carrinho-btn {
+            position: relative;
+            background: #2d6a4f; /* Cor do botão do carrinho */
+            color: white;
+            padding: 10px 15px; /* Ajuste o padding para um botão menor */
+            text-decoration: none;
+            border-radius: 50%; /* Bordas arredondadas */
+            transition: background 0.3s;
+            display: flex; /* Flex para alinhar o ícone e o contador */
+            align-items: center; /* Centraliza verticalmente */
+            justify-content: center; /* Centraliza horizontalmente */
+            margin-top: 10px; /* Margem superior */
+        }
+        .carrinho-btn:hover {
+            background: #1b4d3e; /* Cor ao passar o mouse */
+        }
+        .contador {
+            margin-left: 5px;
+            background: #fff;
+            color: #2d6a4f;
+            border-radius: 50%;
+            padding: 5px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            border: 2px solid #2d6a4f;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centraliza horizontalmente */
+            margin-top: 10px; /* Espaço entre a navegação e a pesquisa */
+        }
+        .search-input {
+            padding: 10px;
+            border: 2px solid #2d6a4f;
+            border-radius: 25px; /* Bordas arredondadas */
+            margin-right: 10px;
+            font-size: 16px;
+            width: 200px; /* Largura do campo de pesquisa */
+            transition: border-color 0.3s; /* Transição suave para a borda */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
+        .search-input:focus {
+            outline: none; /* Remove o contorno padrão */
+            border-color: #1b4d3e; /* Cor da borda ao focar */
+        }
+        .search-btn {
+            background-color: #2d6a4f; /* Verde */
+            color: white;
+            border: none;
+            padding: 10px 15px; /* Aumenta o tamanho do botão */
+            border-radius: 25px; /* Bordas arredondadas */
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s; /* Transição suave */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra suave */
+        }
+        .search-btn:hover {
+            background-color: #1b4d3e; /* Verde mais escuro */
+            transform: translateY(-2px); /* Efeito de elevação */
+        }
+        .container {
+            width: 90%; /* Largura ajustada para telas menores */
+            margin: auto;
+            text-align: center;
+            padding: 20px 0; /* Ajuste o padding */
+        }
+        .section {
+            margin-bottom: 40px; /* Espaço entre seções */
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f9f9f9; /* Fundo claro para a seção */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
+        .section h3 {
+            color: #2d6a4f; /* Cor do título da seção */
+            margin-bottom: 20px; /* Espaço abaixo do título */
+            font-size: 24px; /* Tamanho da fonte do título */
+            font-weight: 600; /* Peso da fonte do título */
+        }
+        .grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Espaço entre os produtos */
+            flex-wrap: wrap; /* Garante que os itens se ajustem conforme necessário */
+        }
+        .produto {
+            background: white;
+            padding: 20px; /* Padding original */
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Efeito de relevo */
+            width: 220px; /* Largura do produto */
+            text-align: center;
+            margin-bottom: 20px; /* Margem para separação */
+            transition: transform 0.2s; /* Transição suave para o efeito de hover */
+        }
+        .produto:hover {
+            transform: translateY(-5px); /* Efeito de elevação ao passar o mouse */
+        }
+        .produto img {
+            max-width: 60%;
+            height: auto; /* Mantém a proporção da imagem */
+            border-radius: 10px;
+        }
+        .preco {
+            display: block;
+            font-weight: bold;
+            color: #2d6a4f; /* Verde nos preços */
+            margin: 10px 0;
+        }
+        footer {
+            background: #2d6a4f; /* Verde mais forte */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative; /* Para garantir que o rodapé fique no final */
+            bottom: 0;
+            width: 100%;
+        }
+        /* Estilos do Modal */
+        .modal {
+            display: none; /* Inicialmente escondido */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro */
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px; /* Largura do modal */
+            border-radius: 10px;
+            text-align: center; /* Centraliza o texto */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra suave */
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .carrinho-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Alinha verticalmente */
+            margin-bottom: 10px;
+        }
+        .remove-btn {
+            background-color: #E4405F; /* Vermelho */
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .remove-btn:hover {
+            background-color: #d6394c; /* Vermelho mais escuro */
+        }
+
+        /* Estilos dos Botões dos Produtos */
+        .btn {
+            background-color: #2d6a4f; /* Verde */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 10px; /* Espaço entre os botões */
+        }
+        .btn:hover {
+            background-color: #1b4d3e; /* Verde mais escuro */
+            transform: translateY(-2px); /* Efeito de elevação */
+        }
+        .btn:active {
+            transform: translateY(0); /* Retorna ao normal ao clicar */
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+            .grid {
+                flex-direction: column; /* Muda para coluna em telas menores */
+                gap: 15px;
+            }
+            .produto {
+                width: 70%; /* Diminui a largura dos produtos em telas menores */
+            }
+            .produto img {
+                max-width: 80%; /* Diminui a largura máxima das imagens em dispositivos móveis */
+                height: auto; /* Mantém a proporção da imagem */
+            }
+        }
+
+        /* Estilos para o select */
+        select {
+            padding: 10px;
+            border: none; /* Remove a borda padrão */
+            border-radius: 5px;
+            background-color: #2d6a4f; /* Fundo verde */
+            color: white; /* Texto branco */
+            font-size: 16px;
+            cursor: pointer; /* Muda o cursor para indicar que é clicável */
+            transition: background 0.3s; /* Transição suave para o fundo */
+            width: 100%; /* Largura total */
+            margin-top: 10px; /* Margem superior */
+        }
+
+        select:hover {
+            background-color: #1b4d3e; /* Verde mais escuro ao passar o mouse */
+        }
+
+        select:focus {
+            outline: none; /* Remove o contorno padrão */
+            background-color: #1b4d3e; /* Verde mais escuro ao focar */
+        }
+
+        /* Estilos do Modal de Coleta de Informações */
+        #infoModal .modal-content {
+            padding: 20px;
+            text-align: left; /* Alinha o texto à esquerda */
+        }
+
+        #infoModal label {
+            display: block; /* Faz com que cada label fique em uma nova linha */
+            margin-top: 10px; /* Espaço acima de cada label */
+        }
+
+        #infoModal input {
+            width: 100%; /* Largura total */
+            padding: 10px; /* Espaçamento interno */
+            margin-top: 5px; /* Espaço acima do campo de entrada */
+            border: 1px solid #ccc; /* Borda padrão */
+            border-radius: 5px; /* Bordas arredondadas */
+        }
+
+        /* Toast Notification */
+        #toast {
+            display: none;
+            position: fixed;
+            top: 20px; /* Posição no topo */
+            right: 20px; /* Posição à direita */
+            background-color: #2d6a4f;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1001; /* Above other elements */
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast Notification -->
+    <div id="toast">Item adicionado ao carrinho!</div>
+
+    <header>
+        <!-- Logo da empresa -->
+        <img src="Imagem_do_WhatsApp_de_2025-03-12_à_s__05.26.50_3dc712c7-removebg-preview.png" alt="Logo Dental Helyon" class="logo">
+        
+        <!-- Navegação -->
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+            </ul>
+            <div class="search-container">
+                <input type="text" class="search-input" id="searchInput" placeholder="Pesquisar produtos...">
+                <button class="search-btn" onclick="pesquisarProdutos()">Pesquisar</button>
+            </div>
+        </nav>
+        
+        <!-- Botão do Carrinho -->
+        <a href="#" class="carrinho-btn" onclick="mostrarCarrinho()">
+            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+            <span class="contador" id="contador">0</span>
+        </a>
+    </header>
+    
+    <section class="container">
+        <h2>Produtos Dental Helyon</h2>
+        <p>Explore nossa seleção de produtos de alta qualidade para sua clínica ou consultório.</p>
+        
+        <div class="section" id="produtosNormais">
+            <h3>Produtos Normais</h3>
+            <div class="grid">
+                <!-- Produto 1 -->
+                <div class="produto" data-nome="Álcool Araucária 70% 1 Litro">
+                    <img src="Imagem do WhatsApp de 2025-03-13 à(s) 13.39.00_82343816.jpg" alt="Álcool Araucária 70% 1 Litro">
+                    <h3>Álcool Araucária 70% 1 Litro</h3>
+                    <span class="preco">R$ 7,99</span>
+                    <p>Álcool Araucária 70% 1 Litro</p>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade1')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade1" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Álcool Araucária 70% 1 Litro', 7.99, document.getElementById('quantidade1').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 2 -->
+                <div class="produto" data-nome="Máscara SSPLUS tripla proteção branca">
+                    <img src="Imagem do WhatsApp de 2025-03-13 à(s) 13.39.02_6d7e5db0.jpg" alt="Máscara SSPLUS tripla proteção branca">
+                    <h3>Máscara SSPLUS tripla proteção branca</h3>
+                    <span class="preco">R$ 6,99</span>
+                    <p>Máscara SSPLUS tripla proteção branca.</p>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade2')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade2" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Máscara SSPLUS tripla proteção branca', 6.99, document.getElementById('quantidade2').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 3 -->
+                <div class="produto" data-nome="Máscara SPK Branca">
+                    <img src="Imagem do WhatsApp de 2025-03-13 à(s) 13.39.02_aa4afb86.jpg" alt="Máscara SPK Branca">
+                    <h3>Máscara SPK Branca</h3>
+                    <span class="preco">R$ 4,99</span>
+                    <p>Máscara SPK Branca</p>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade3')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade3" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Máscara SPK Branca', 4.99, document.getElementById('quantidade3').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 4 -->
+                <div class="produto" data-nome="Água Destilada SSPLUS">
+                    <img src="Imagem do WhatsApp de 2025-03-13 à(s) 13.39.02_beb045e8.jpg" alt="Água Destilada SSPLUS">
+                    <h3>Água Destilada SSPLUS</h3>
+                    <span class="preco">R$ 16,99</span>
+                    <p>Água Destilada SSPLUS</p>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade4')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade4" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Água Destilada SSPLUS', 16.99, document.getElementById('quantidade4').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="produtosTamanhos">
+            <h3>Produtos com Tamanhos</h3>
+            <div class="grid">
+                <!-- Produto 5 -->
+                <div class="produto" data-nome="Luvas de Látex Unigloves Branca">
+                    <img src="luva_de_latex_branca_para_procedimento_standard_com_po_unigloves_1987_1_f80e5a49f537f837800ab112440ab4d3.webp" alt="Luvas de Látex Unigloves Branca">
+                    <h3>Luvas de Látex Unigloves Branca</h3>
+                    <span class="preco">R$ 30,99</span>
+                    <p>Luvas de látex de alta qualidade disponíveis nos tamanhos PP P M G</p>
+                    <select id="tamanho1">
+                        <option value="">Selecionar Tamanho</option>
+                        <option value="PP">PP</option>
+                        <option value="P">P</option>
+                        <option value="M">M</option>
+                        <option value="G">G</option>
+                    </select>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade5')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade5" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Luvas de Látex Unigloves Branca', 30.99, document.getElementById('quantidade5').value, document.getElementById('tamanho1').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 6 -->
+                <div class="produto" data-nome="Luva Safemax/Supermax Látex S/PÓ">
+                    <img src="safemaxluvaaaaaa.jpg" alt="luva Safemax Polimizada Branca Latex S/Pó">
+                    <h3>Luva Safemax/Supermax Látex S/PÓ</h3>
+                    <span class="preco">R$ 29,99</span>
+                    <p>Luva Safemax/Supermax Látex S/PÓ</p>
+                    <select id="tamanho2">
+                        <option value="">Selecionar Tamanho</option>
+                        <option value="PP">PP</option>
+                        <option value="P">P</option>
+                        <option value="M">M</option>
+                    </select>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade6')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade6" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Luva Safemax/Supermax Látex S/PÓ', 29.99, document.getElementById('quantidade6').value, document.getElementById('tamanho2').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 7 -->
+                <div class="produto" data-nome="Luvas de Látex Unigloves Roxa">
+                    <img src="Screenshot 2025-03-12 at 04-48-34 Juarez Helyon Ramos LUVA LATEX UNIGLOVES ROXA POR APENAS $28 99 TAMANHOS EP P M Instagram.png" alt="Luvas de Látex Unigloves Roxa">
+                    <h3>Luvas de Látex Unigloves Roxa</h3>
+                    <span class="preco">R$ 28,99</span>
+                    <p>Luvas de Látex Unigloves Roxa tamanhos disponíveis EP P M.</p>
+                    <select id="tamanho7">
+                        <option value="">Selecionar Tamanho</option>
+                        <option value="EP">EP</option>
+                        <option value="P">P</option>
+                        <option value="M">M</option>
+                    </select>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade7')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade7" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Luvas de Látex Unigloves Roxa', 28.99, document.getElementById('quantidade7').value, document.getElementById('tamanho7').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 8 -->
+                <div class="produto" data-nome="Luvas de Látex Unigloves Preta">
+                    <img src="Screenshot 2025-03-12 at 04-49-13 Juarez Helyon Ramos LUVA LÁTEX UNIGLOVES PRETA POR APENAS $28 99 TAMANHOS EP P M Instagram.png" alt="Luvas de Látex Unigloves Preta">
+                    <h3>Luvas de Látex Unigloves Preta</h3>
+                    <span class="preco">R$ 28,99</span>
+                    <p>Luvas de Látex Unigloves Preta tamanhos disponíveis EP P M</p>
+                    <select id="tamanho8">
+                        <option value="">Selecionar Tamanho</option>
+                        <option value="EP">EP</option>
+                        <option value="P">P</option>
+                        <option value="M">M</option>
+                    </select>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade8')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade8" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Luvas de Látex Unigloves Preta', 28.99, document.getElementById('quantidade8').value, document.getElementById('tamanho8').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 9 -->
+                <div class="produto" data-nome="Luvas de Látex Unigloves Rosa">
+                    <img src="Screenshot 2025-03-12 at 04-49-29 Juarez Helyon Ramos LUVA LÁTEX UNIGLOVES PINK $ 36 99 TAMANHOS P e M Instagram.png" alt="Luvas de Látex Unigloves Rosa">
+                    <h3>Luvas de Látex Unigloves Rosa</h3>
+                    <span class="preco">R$ 36,99</span>
+                    <p>Luvas de Látex Unigloves Rosa tamanhos disponíveis P M</p>
+                    <select id="tamanho9">
+                        <option value="">Selecionar Tamanho</option>
+                        <option value="P">P</option>
+                        <option value="M">M</option>
+                    </select>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade9')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade9" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Luvas de Látex Unigloves Rosa', 36.99, document.getElementById('quantidade9').value, document.getElementById('tamanho9').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nova seção de produtos -->
+        <div class="section" id="novosProdutos">
+            <h3>Novos Produtos</h3>
+            <div class="grid">
+                <!-- Produto 10 -->
+                <div class="produto" data-nome="Gesso Chaves 25kg">
+                    <img src="sg-11134201-7rbk4-m63z7xoq3gqcae.webp" alt="Gesso Chaves 25kg">
+                    <h3>Gesso Chaves 25kg</h3>
+                    <span class="preco">R$ 179,99</span>
+                    <p>Gesso Chaves 25kg.</p>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade10')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade10" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Gesso Chaves 25kg', 179.99, document.getElementById('quantidade10').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 11 -->
+                <div class="produto" data-nome="Fixador Radiográfico Kulzer">
+                    <img src="Imagem do WhatsApp de 2025-03-17 à(s) 10.27.45_06bb5ecf.jpg" alt="Fixador Radiográfico Kulzer">
+                    <h3>Fixador Radiográfico Kulzer</h3>
+                    <span class="preco">R$ 15,99</span>
+                    <p>Fixador Radiográfico Kulzer 500 ml.</p>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade11')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade11" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Fixador Radiográfico Kulzer 500 ml', 15.99, document.getElementById('quantidade11').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 12 -->
+                <div class="produto" data-nome="Revelador Radiográfico Kulzer">
+                    <img src="Imagem do WhatsApp de 2025-03-17 à(s) 10.27.45_075c8144.jpg" alt="Revelador Radiográfico Kulzer">
+                    <h3>Revelador Radiográfico Kulzer</h3>
+                    <span class="preco">R$ 15,99</span>
+                    <p>Revelador Radiográfico Kulzer 500 ml.</p>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade12')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade12" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Revelador Radiográfico Kulzer', 15.99, document.getElementById('quantidade12').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 13 -->
+                <div class="produto" data-nome="Kit Clareador Whiteness Perfect 16%">
+                    <img src="whiteness.jpg" alt="Kit Clareador Whiteness Perfect 16%">
+                    <h3>Kit Clareador Whiteness Perfect 16%</h3>
+                    <span class="preco">R$ 89,99</span>
+                    <p>Kit Clareador Whiteness Perfect 16%.</p>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade13')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade13" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Kit Clareador Whiteness Perfect 16%', 89.99, document.getElementById('quantidade13').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 14 -->
+                <div class="produto" data-nome="Kit Clareador Whiteness Perfect 10%">
+                    <img src="whiteness10.jpg" alt="Kit Clareador Whiteness Perfect 10%">
+                    <h3>Kit Clareador Whiteness Perfect 10%</h3>
+                    <span class="preco">R$ 89,99</span>
+                    <p>Kit Clareador Whiteness Perfect 10%.</p>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade14')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade14" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Kit Clareador Whiteness Perfect 10%', 89.99, document.getElementById('quantidade14').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 15 -->
+                <div class="produto" data-nome="Resina Z100">
+                    <img src="resina.jpg" alt="Resina Z100">
+                    <h3>Resina Z100</h3>
+                    <span class="preco">R$ 44,99</span>
+                    <p>Resina Z100 Cores: A1 A2 A3 A3.5</p>
+                    <select id="cor1">
+                        <option value="">Selecionar Cor</option>
+                        <option value="A1">A1</option>
+                        <option value="A2">A2</option>
+                        <option value="A3">A3</option>
+                        <option value="A3.5">A3.5</option>
+                    </select>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade15')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade15" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Resina Z100', 44.99, document.getElementById('quantidade15').value, document.getElementById('cor1').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 16 -->
+                <div class="produto" data-nome="Resina Fill Magic">
+                    <img src="resinamagic.jpg" alt="Resina Fill Magic">
+                    <h3>Resina Fill Magic</h3>
+                    <span class="preco">R$ 22,99</span>
+                    <p>RESINA FILL MAGIC CORES: A1 A2 A3 A3.5</p>
+                    <select id="cor2">
+                        <option value="">Selecionar Cor</option>
+                        <option value="A1">A1</option>
+                        <option value="A2">A2</option>
+                        <option value="A3">A3</option>
+                        <option value="A3.5">A3.5</option>
+                    </select>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade16')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade16" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Resina Fill Magic', 22.99, document.getElementById('quantidade16').value, document.getElementById('cor2').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 17 -->
+                <div class="produto" data-nome="Resina LLIS">
+                    <img src="llis.jpg" alt="Resina LLIS">
+                    <h3>Resina LLIS</h3>
+                    <span class="preco">R$ 29,99</span>
+                    <p>RESINA LLIS CORES: EA1 EA2 EA3 EA3.5 DA1 DA2 DA3 DA3.5</p>
+                    <select id="cor3">
+                        <option value="">Selecionar Cor</option>
+                        <option value="EA1">EA1</option>
+                        <option value="EA2">EA2</option>
+                        <option value="EA3">EA3</option>
+                        <option value="EA3.5">EA3.5</option>
+                        <option value="DA1">DA1</option>
+                        <option value="DA2">DA2</option>
+                        <option value="DA3">DA3</option>
+                        <option value="DA3.5">DA3.5</option>
+                    </select>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade17')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade17" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Resina LLIS', 29.99, document.getElementById('quantidade17').value, document.getElementById('cor3').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 18 -->
+                <div class="produto" data-nome="Resina Charisma">
+                    <img src="KULZER.jpg" alt="Resina Charisma">
+                    <h3>Resina Charisma</h3>
+                    <span class="preco">R$ 49,99</span>
+                    <p>RESINA CHARISMA CORES: A1 A3 A3.5 OA2 OA3</p>
+                    <select id="cor4">
+                        <option value="">Selecionar Cor</option>
+                        <option value="A1">A1</option>
+                        <option value="A3">A3</option>
+                        <option value="A3.5">A3.5</option>
+                        <option value="OA2">OA2</option>
+                        <option value="OA3">OA3</option>
+                    </select>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade18')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade18" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Resina Charisma', 49.99, document.getElementById('quantidade18').value, document.getElementById('cor4').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 19 -->
+                <div class="produto" data-nome="Kit Clareador 35% + Top Dam">
+                    <img src="cleareador.jpg" alt="Kit Clareador 35% + Top Dam">
+                    <h3>Kit Clareador 35% + Top Dam</h3>
+                    <span class="preco">R$ 139,99</span>
+                    <p>Kit Clareador 35% + Top Dam</p>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade19')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade19" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Kit Clareador 35% + Top Dam', 139.99, document.getElementById('quantidade19').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+               
+                <!-- Produto 20 -->
+                <div class="produto" data-nome="Alginato Hydrogum">
+                    <img src="hydrorun.jpg" alt="Alginato Hydrogum">
+                    <h3>Alginato Hydrogum</h3>
+                    <span class="preco">R$ 83,99</span>
+                    <p>Alginato Hydrogum</p>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade20')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade20" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Alginato Hydrogum', 83.99, document.getElementById('quantidade20').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 21 -->
+                <div class="produto" data-nome="Adesivo Magic Bond">
+                    <img src="magist.jpg" alt="Adesivo Magic Bond">
+                    <h3>Adesivo Magic Bond</h3>
+                    <span class="preco">R$ 21,99</span>
+                    <p>Adesivo Magic Bond</p>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade21')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade21" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Adesivo Magic Bond', 21.99, document.getElementById('quantidade21').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 22 -->
+                <div class="produto" data-nome="Alginato Ezact Kroom">
+                    <img src="alginato.jpg" alt="Alginato Ezact Kroom">
+                    <h3>Alginato Ezact Kroom</h3>
+                    <span class="preco">R$ 29,99</span>
+                    <p>Alginato Ezact Kroom</p>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade22')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade22" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Alginato Ezact Kroom', 29.99, document.getElementById('quantidade22').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 23 -->
+                <div class="produto" data-nome="Babador Odontológico SSPLUS">
+                    <img src="BABADOR.jpg" alt="Babador Odontológico SSPLUS">
+                    <h3>Babador Odontológico SSPLUS</h3>
+                    <span class="preco">R$ 16,99</span>
+                    <p>Babador Odontológico SSPLUS</p>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade23')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade23" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Babador Odontológico SSPLUS', 16.99, document.getElementById('quantidade23').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 24 -->
+                <div class="produto" data-nome="Sugador Odontológico SSPLUS">
+                    <img src="SUGADOR.jpg" alt="Sugador Odontológico SSPLUS">
+                    <h3>Sugador Odontológico SSPLUS</h3>
+                    <span class="preco">R$ 8,99</span>
+                    <p>Sugador Odontológico SSPLUS</p>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade24')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade24" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Sugador Odontológico SSPLUS', 8.99, document.getElementById('quantidade24').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 25 -->
+                <div class="produto" data-nome="Rolete De Algodão SSPLUS">
+                    <img src="ALGODAO.jpg" alt="Rolete De Algodão SSPLUS">
+                    <h3>Rolete De Algodão SSPLUS</h3>
+                    <span class="preco">R$ 2,89</span>
+                    <p>Rolete De Algodão SSPLUS</p>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade25')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade25" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Rolete De Algodão SSPLUS', 2.89, document.getElementById('quantidade25').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 26 -->
+                <div class="produto" data-nome="Luva Cirúrgica Latex Maxitex">
+                    <img src="LUVACIRURGICA.jpg" alt="Luva Cirúrgica Latex Maxitex">
+                    <h3>Luva Cirúrgica Latex Maxitex</h3>
+                    <span class="preco">R$ 2,19</span>
+                    <p>Luva Cirúrgica Latex Maxitex</p>
+                    <select id="tamanhoMaxitex">
+                        <option value="">Selecionar Tamanho</option>
+                        <option value="6.0">6.0</option>
+                        <option value="6.5">6.5</option>
+                        <option value="7.0">7.0</option>
+                        <option value="7.5">7.5</option>
+                        <option value="8.0">8.0</option>
+                        <option value="8.5">8.5</option>
+                    </select>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade26')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade26" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Luva Cirúrgica Latex Maxitex', 2.19, document.getElementById('quantidade26').value, document.getElementById('tamanhoMaxitex').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <!-- Produto 27 -->
+                <div class="produto" data-nome="Toucas Descartáveis 100 Unidades Prevemax">
+                    <img src="slaoqé.jpg" alt="Toucas Descartáveis 100 Unidades Prevemax">
+                    <h3>Toucas Descartáveis 100 Unidades Prevemax</h3>
+                    <span class="preco">R$ 8,99</span>
+                    <p>Toucas Descartáveis 100 Unidades Prevemax</p>
+                    <select id="corTouca">
+                        <option value="">Selecionar Cor</option>
+                        <option value="Azul">Azul</option>
+                        <option value="Verde">Verde</option>
+                        <option value="Vermelha">Vermelha</option>
+                    </select>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade27')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade27" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Toucas Descartáveis 100 Unidades Prevemax', 8.99, document.getElementById('quantidade27').value, document.getElementById('corTouca').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                 <!-- Produto 28 -->
+                 <div class="produto" data-nome="Touca Sanfonada Branca SSPLUS">
+                    <img src="toucasanfonada.jpg" alt="Touca Sanfonada Branca SSPLUS">
+                    <h3>Touca Sanfonada Branca SSPLUS</h3>
+                    <span class="preco">R$ 19,99</span>
+                    <p>Touca Sanfonada Branca SSPLUS</p>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade28')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade28" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Touca Sanfonada Branca SSPLUS', 19.99, document.getElementById('quantidade28').value)">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Modal do Carrinho -->
+    <div id="carrinhoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharCarrinho()">&times;</span>
+            <h2>Carrinho de Compras</h2>
+            <div id="carrinhoItems"></div>
+            <button class="btn" onclick="fecharCarrinho()">Fechar</button>
+            <button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button> <!-- Botão para finalizar o pedido -->
+        </div>
+    </div>
+    
+    <!-- Modal de Coleta de Informações -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharInfoModal()">&times;</span>
+            <h2>Informações do Pedido</h2>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" required>
+            <label for="cidade">Cidade:</label>
+            <input type="text" id="cidade" required>
+            <label for="cep">CEP:</label>
+            <input type="text" id="cep" required>
+            <button class="btn" onclick="enviarPedido()">Enviar Pedido</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Dental Helyon. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Funções JavaScript para manipulação do carrinho e pesquisa
+        let carrinho = [];
+        let contador = 0;
+
+        function adicionarAoCarrinho(nome, preco, quantidade, cor = '') {
+            const item = { nome, preco, quantidade, cor };
+            carrinho.push(item);
+            contador += parseInt(quantidade);
+            document.getElementById('contador').innerText = contador;
+            showToast(`${quantidade}x ${nome} adicionado(s) ao carrinho!`);
+        }
+
+        function incrementarQuantidade(id) {
+            const input = document.getElementById(id);
+            input.value = parseInt(input.value) + 1;
+        }
+
+        function mostrarCarrinho() {
+            const carrinhoItems = document.getElementById('carrinhoItems');
+            carrinhoItems.innerHTML = ''; // Limpa o conteúdo anterior
+            carrinho.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'carrinho-item';
+                itemDiv.innerHTML = `
+                    <span>${item.quantidade}x ${item.nome} - R$ ${item.preco.toFixed(2)} ${item.cor ? '(Cor: ' + item.cor + ')' : ''}</span>
+                    <button class="remove-btn" onclick="removerDoCarrinho(${index})">Remover</button>
+                `;
+                carrinhoItems.appendChild(itemDiv);
+            });
+            document.getElementById('carrinhoModal').style.display = 'block'; // Mostra o modal
+        }
+
+        function fecharCarrinho() {
+            document.getElementById('carrinhoModal').style.display = 'none'; // Esconde o modal
+        }
+
+        function removerDoCarrinho(index) {
+            const item = carrinho[index];
+            contador -= parseInt(item.quantidade);
+            document.getElementById('contador').innerText = contador;
+            carrinho.splice(index, 1); // Remove o item do carrinho
+            mostrarCarrinho(); // Atualiza o modal
+        }
+
+        function finalizarPedido() {
+            if (carrinho.length === 0) {
+                alert("Seu carrinho está vazio!");
+                return;
+            }
+
+            // Exibe o modal de coleta de informações
+            document.getElementById('infoModal').style.display = 'block';
+        }
+
+        function fecharInfoModal() {
+            document.getElementById('infoModal').style.display = 'none'; // Esconde o modal
+        }
+
+        function enviarPedido() {
+            const nome = document.getElementById('nome').value;
+            const cidade = document.getElementById('cidade').value;
+            const cep = document.getElementById('cep').value;
+
+            // Verifica se todos os campos estão preenchidos
+            if (!nome || !cidade || !cep) {
+                alert("Por favor, preencha todos os campos.");
+                return;
+            }
+
+            let mensagem = `*Finalizando o Pedido*\n\n`; // Usando a formatação em negrito do WhatsApp
+            mensagem += `*Nome:* ${nome}\n`;
+            mensagem += `*Cidade:* ${cidade}\n`;
+            mensagem += `*CEP:* ${cep}\n\n`;
+            mensagem += `*Gostaria de finalizar meu pedido:*\n\n`;
+            
+            let total = 0; // Inicializa o total
+
+            // Adiciona cada item do carrinho à mensagem
+            carrinho.forEach(item => {
+                const subtotal = item.preco * item.quantidade; // Calcula o subtotal para cada item
+                total += subtotal; // Adiciona ao total
+                mensagem += `${item.quantidade}x ${item.nome} - R$ ${subtotal.toFixed(2)} ${item.cor ? '(Cor: ' + item.cor + ')' : ''}\n`;
+            });
+
+            mensagem += `\n*Total:* R$ ${total.toFixed(2)}`; // Adiciona o total à mensagem
+            mensagem += `\nAguarde nossa equipe lhe responder para finalizar o pedido.`; // Mensagem adicional
+
+            const telefone = "554438011525"; // Número de telefone
+            const url = `https://api.whatsapp.com/send?phone=${telefone}&text=${encodeURIComponent(mensagem)}`;
+            
+            console.log("Mensagem a ser enviada:", mensagem); // Debugging: Verifique a mensagem no console
+            console.log("URL do WhatsApp:", url); // Debugging: Verifique a URL no console
+
+            window.open(url, '_blank'); // Abre o WhatsApp em uma nova aba
+
+            // Fecha o modal de informações
+            fecharInfoModal();
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000); // Hide after 3 seconds
+        }
+
+        function pesquisarProdutos() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const produtos = document.querySelectorAll('.produto');
+            produtos.forEach(produto => {
+                const nome = produto.getAttribute('data-nome').toLowerCase();
+                if (nome.includes(input)) {
+                    produto.style.display = 'block';
+                } else {
+                    produto.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

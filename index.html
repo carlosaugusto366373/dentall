@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Helyon - Produtos Odontológicos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Travar rolagem horizontal */
+        html, body {
+            overflow-x: hidden; /* Impede o scroll horizontal */
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Estilos do cabeçalho */
+        header {
+            background: #2d6a4f; /* Verde mais forte */
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .logo {
+            max-width: 120px;
+            height: auto;
+        }
+        .menu-toggle {
+            display: block; /* Exibe o botão do menu em telas menores */
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Estilos do Modal */
+        .modal {
+            display: none; /* Oculto por padrão */
+            position: fixed; /* Fica fixo na tela */
+            z-index: 1000; /* Fica acima de outros elementos */
+            left: 0;
+            top: 0;
+            width: 100%; /* Largura total */
+            height: 100%; /* Altura total */
+            overflow: auto; /* Permite rolagem se necessário */
+            background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro com transparência */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* Centraliza o modal */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Largura do modal */
+            max-width: 500px; /* Largura máxima do modal */
+            border-radius: 10px; /* Bordas arredondadas */
+        }
+
+        .close {
+            color: #aaa;
+            float: right; /* Alinha o "X" à direita */
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black; /* Muda a cor ao passar o mouse */
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Estilos para os links do modal */
+        .modal nav ul {
+            list-style: none; /* Remove os marcadores da lista */
+            padding: 0; /* Remove o padding */
+        }
+
+        .modal nav ul li {
+            margin: 10px 0; /* Margem entre os itens do menu */
+        }
+
+        .modal nav ul li a {
+            display: inline-block; /* Para aplicar padding e margens */
+            padding: 12px 20px; /* Padding para aumentar a área clicável */
+            color: white; /* Cor do texto */
+            text-decoration: none; /* Remove o sublinhado */
+            border-radius: 30px; /* Bordas mais arredondadas */
+            background: linear-gradient(135deg, #4CAF50, #2d6a4f); /* Gradiente de verde */
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s; /* Efeito de transição */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para o botão */
+        }
+
+        .modal nav ul li a:hover {
+            background: linear-gradient(135deg, #45a049, #3b8c3a); /* Cor de fundo ao passar o mouse */
+            transform: translateY(-3px); /* Levanta o botão ao passar o mouse */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Aumenta a sombra ao passar o mouse */
+        }
+
+        /* Estilos do botão "Ver Produtos" */
+        .btn.destaque {
+            background: linear-gradient(135deg, #4CAF50, #2d6a4f); /* Gradiente de verde */
+            color: white;
+            padding: 12px 24px; /* Aumentado o padding para um botão mais robusto */
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 30px; /* Bordas mais arredondadas */
+            margin-top: 10px;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s; /* Efeito de transição */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para o botão */
+        }
+
+        .btn.destaque:hover {
+            background: linear-gradient(135deg, #45a049, #3b8c3a); /* Cor de fundo ao passar o mouse */
+            transform: translateY(-3px); /* Levanta o botão ao passar o mouse */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Aumenta a sombra ao passar o mouse */
+        }
+
+        /* Estilos do botão "WhatsApp" */
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #25D366, #1DAF5A); /* Gradiente do WhatsApp */
+            color: white;
+            padding: 12px 20px; /* Aumentado o padding para um botão mais robusto */
+            text-decoration: none;
+            border-radius: 30px; /* Bordas mais arredondadas */
+            font-weight: 600;
+            margin-left: 10px; /* Espaçamento à esquerda do botão do WhatsApp */
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s; /* Efeito de transição */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para o botão */
+        }
+
+        .whatsapp-btn:hover {
+            background: linear-gradient(135deg, #1DAF5A, #1DAF5A); /* Cor ao passar o mouse */
+            transform: translateY(-3px); /* Levanta o botão ao passar o mouse */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Aumenta a sombra ao passar o mouse */
+        }
+
+        .whatsapp-btn i {
+            margin-right: 8px; /* Espaçamento entre o ícone e o texto */
+        }
+
+        /* Estilos do banner */
+        #banner {
+            background: url('banner.jpg') no-repeat center center/cover;
+            text-align: center;
+            padding: 50px 20px; /* Reduzido o padding para diminuir a altura do banner */
+        }
+        #banner h2 {
+            color: black;
+        }
+
+        /* Estilos do banner promocional */
+        .banner-promocional {
+            width: 100%; /* Ocupar toda a largura */
+            padding: 20px 0; /* Ajuste o padding para um espaço razoável */
+            margin: 20px 0; /* Margem acima e abaixo */
+            display: flex; /* Usar flexbox para centralizar a imagem */
+            justify-content: center; /* Centraliza a imagem horizontalmente */
+        }
+        .banner-promocional img {
+            max-width: 95%; /* Ajusta a imagem para caber no container, aumentando a largura */
+            height: auto; /* Mantém a proporção da imagem */
+            max-height: 300px; /* Define uma altura máxima para a imagem */
+            border-radius: 10px; /* Bordas arredondadas */
+        }
+
+        /* Estilos do carrossel */
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 800px; /* Largura máxima do carrossel */
+            margin: auto;
+            display: flex; /* Adicionado para centralizar o conteúdo */
+            justify-content: center; /* Centraliza o carrossel */
+        }
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease; /* Transição suave */
+            width: auto; /* Ajuste para auto para permitir flexbox */
+            justify-content: center; /* Centraliza os cartões dentro do carrossel */
+        }
+        .produto-card {
+            background: #fff;
+            border: 2px solid #2d6a4f; /* Borda verde */
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra mais forte */
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s; /* Efeito de transição */
+            cursor: default; /* Muda o cursor para indicar que não é clicável */
+            min-width: 250px; /* Largura mínima para os cartões */
+            margin: 10px; /* Margem entre os cartões */
+            flex: 0 0 auto; /* Impede que os cartões encolham */
+        }
+        .produto-card:hover {
+            transform: translateY(-5px); /* Levanta o cartão ao passar o mouse */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Aumenta a sombra ao passar o mouse */
+        }
+        .produto-card img {
+            max-width: 100px;
+            margin-bottom: 10px;
+        }
+        .produto-card h4 {
+            color: #2d6a4f;
+            margin: 10px 0;
+            font-size: 18px; /* Aumenta o tamanho da fonte do título */
+        }
+        .produto-card p {
+            color: #555; /* Cor do texto da descrição */
+            font-size: 14px; /* Tamanho da fonte da descrição */
+            line-height: 1.5; /* Espaçamento entre linhas */
+        }
+
+        /* Botões do carrossel */
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+        .carousel-control.left {
+            left: 10px;
+        }
+        .carousel-control.right {
+            right: 10px;
+        }
+
+        /* Animação de fade-in */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px); /* Move o título para cima */
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0); /* Retorna à posição original */
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease forwards; /* Aplica a animação */
+        }
+
+        /* Estilos do container */
+        .container {
+            width: 90%; /* Ajustado para 90% */
+            max-width: 1200px; /* Limite máximo */
+            margin: auto;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        /* Estilos do rodapé */
+        footer {
+            background: #1d4d3f; /* Altere esta cor para a cor desejada */
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Estilos para as mensagens */
+        .mensagens {
+            color: #2d6a4f;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+            position: relative; /* Para animação */
+            left: -100%; /* Começa fora da tela à esquerda */
+            animation: moveRight 5s linear infinite; /* Animação de movimento */
+            display: none; /* Inicialmente oculto */
+        }
+
+        @keyframes moveRight {
+            0% {
+                left: -100%; /* Começa fora da tela à esquerda */
+            }
+            50% {
+                left: 20px; /* Posição final */
+            }
+            100% {
+                left: 100%; /* Sai da tela à direita */
+            }
+        }
+
+        /* Estilos para a seção de testemunhos */
+        .testemunhos {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .testemunho-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .testemunho-card:hover {
+            transform: scale(1.05);
+        }
+
+        /* Estilos para a seção de FAQ */
+        .faq-item {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* Estilos para a tabela */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #2d6a4f;
+            color: white;
+        }
+
+        /* Estilos para a seção de métodos de pagamento */
+        .metodos-pagamento {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .metodo-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex: 1 1 150px; /* Flexível com largura mínima */
+        }
+
+        /* Estilos para as redes sociais */
+        .social-media {
+            margin-top: 10px;
+        }
+
+        .social-icon {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 18px; /* Tamanho do ícone */
+        }
+
+        .social-icon:hover {
+            color: #A8E6CF; /* Cor ao passar o mouse */
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 10px;
+            }
+            .container {
+                width: 95%; /* Ajustado para 95% */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Logo da empresa -->
+        <img src="Imagem_do_WhatsApp_de_2025-03-12_à_s__05.26.50_3dc712c7-removebg-preview.png" alt="Logo Dental Helyon" class="logo">
+        
+        <!-- Botão do Menu -->
+        <button class="menu-toggle" aria-label="Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <!-- Contêiner para os botões -->
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
+            <!-- Botão Ver Produtos -->
+            <a href="produtos.html" class="btn destaque">Ver Produtos</a>
+            
+            <!-- Botão WhatsApp Oficial -->
+            <a href="https://wa.me/554438011525" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> WhatsApp Oficial</a>
+        </div>
+    </header>
+
+    <!-- Modal do Menu -->
+    <div class="modal" id="menuModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <nav>
+                <ul>
+                    <li><a href="#pagamentos">Pagamentos</a></li>
+                    <li><a href="#como-funciona">Como Funciona</a></li>
+                    <li><a href="#faq">Perguntas</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Seção do Carrossel de Produtos -->
+    <section class="carousel container">
+        <button class="carousel-control left" onclick="moveSlide(-1)">&#10094;</button>
+        <div class="carousel-inner">
+            <div class="produto-card">
+                <img src="2.png" alt="Maringá e Região">
+                <h4>Maringá e Região</h4>
+                <p>Frete grátis para Maringá e região.</p>
+            </div>
+            <div class="produto-card">
+                <img src="Screenshot 2025-03-12 at 04-48-34 Juarez Helyon Ramos LUVA LATEX UNIGLOVES ROXA POR APENAS $28 99 TAMANHOS EP P M Instagram.png" alt="Luvas de Látex Unigloves">
+                <h4>Luvas de Látex Unigloves</h4>
+                <p>Luvas de Látex Unigloves</p>
+            </div>
+            <div class="produto-card">
+                <img src="3d-rendering-blue-verified-sign-isolated-png.png" alt="Qualidade e Confiança">
+                <h4>Qualidade e Confiança</h4>
+                <p>Produtos de qualidade com entrega garantida.</p>
+            </div>
+        </div>
+        <button class="carousel-control right" onclick="moveSlide(1)">&#10095;</button>
+    </section>
+
+    <!-- Seção do Banner Promocional -->
+    <section class="banner-promocional container">
+        <img src="Banner frete grátis amarelo e vermelho.png" alt="Banner Promocional" style="max-width: 95%; height: auto; max-height: 300px; border-radius: 10px;">
+    </section>
+    
+    <section id="banner">
+        <h2 class="fade-in">Os Melhores Produtos Odontológicos para Você!</h2>
+        <p>Encontre tudo o que precisa para sua clínica ou consultório.</p>
+    </section>
+
+    <!-- Seção de Testemunhos -->
+    <section class="testemunhos container">
+        <h2>O que nossos clientes dizem</h2>
+        <div class="testemunho-card">
+            <p>"A Dental Helyon sempre me fornece produtos de alta qualidade e com entrega rápida!"</p>
+            <h4>- Dr. João Silva</h4>
+        </div>
+        <div class="testemunho-card">
+            <p>"Excelente atendimento e produtos confiáveis. Recomendo!"</p>
+            <h4>- Dra. Maria Oliveira</h4>
+        </div>
+    </section>
+
+    <!-- Seção Como Funciona -->
+    <section class="container" id="como-funciona">
+        <h2>Como Funciona</h2>
+        <table>
+            <tr>
+                <th>Passo</th>
+                <th>Descrição</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Escolha os produtos que deseja comprar em nossa loja.</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Adicione os produtos ao seu carrinho de compras.</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Finalize a compra no nosso WhatsApp, onde nossa representante de vendas vai te responder e finalizar a compra e entrega.</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Seção de Perguntas Frequentes -->
+    <section class="faq container" id="faq">
+        <h2>Perguntas Frequentes</h2>
+        <table>
+            <tr>
+                <th>Pergunta</th>
+                <th>Resposta</th>
+            </tr>
+            <tr>
+                <td>Qual é o prazo de entrega?</td>
+                <td>O prazo de entrega varia de acordo com a localização, mas geralmente leva de 1 a 2 dias úteis.</td>
+            </tr>
+            <tr>
+                <td>Vocês oferecem garantia nos produtos?</td>
+                <td>Sim, todos os nossos produtos têm garantia de qualidade. Se houver algum problema, entre em contato conosco.</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Seção de Métodos de Pagamento -->
+    <section class="container" id="pagamentos">
+        <h2>Métodos de Pagamento</h2>
+        <div class="metodos-pagamento">
+            <div class="metodo-card">
+                <img src="10X_SEM_JUROS.png" alt="Parcelamento em até 10x" style="max-width: 120px; margin-bottom: 10px;">
+                <p>Parcelamento em até 10x</p>
+            </div>
+            <div class="metodo-card">
+                <img src="artpoin-logo-pix.png" alt="Pagamento via Pix" style="max-width: 90px; margin-bottom: 10px;">
+                <p>Pagamento via Pix</p>
+            </div>
+            <div class="metodo-card">
+                <img src="pngtree-coast-file-payment-bill-vector-png-image_12191201.png" alt="Pagamento via Boleto" style="max-width: 100px; margin-bottom: 10px;">
+                <p>Pagamento via Boleto</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer id="contato">
+        <p>&copy; 2025 Dental Helyon - Todos os direitos reservados.</p>
+        <div class="social-media">
+            <a href="https://www.facebook.com/helyondental/?locale=pt_BR" target="_blank" class="social-icon">
+                <i class="fab fa-facebook-f"></i> Facebook
+            </a>
+            <a href="https://www.instagram.com/dentalhelyon_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="social-icon">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://wa.me/554438011525" class="social-icon whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        // Função para redirecionar para o WhatsApp
+        function redirectToWhatsApp() {
+            const nome = document.querySelector('input[placeholder="Seu Nome"]').value;
+            const telefone = document.querySelector('input[placeholder="Seu Telefone"]').value;
+
+            // Mensagem padrão
+            const mensagem = "Oi, quero receber as ofertas.";
+            const texto = `${mensagem} Meu nome é ${nome} e meu telefone é ${telefone}.`;
+            const url = `https://api.whatsapp.com/send/?phone=554438011525&text=${encodeURIComponent(texto)}&type=phone_number&app_absent=0`;
+
+            window.open(url, '_blank'); // Abre o WhatsApp em uma nova aba
+        }
+
+        // Carrossel de produtos
+        let currentSlide = 0;
+
+        function moveSlide(direction) {
+            const slides = document.querySelectorAll('.produto-card');
+            const totalSlides = slides.length;
+
+            // Atualiza o índice do slide atual
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+
+            // Move o carrossel
+            const carouselInner = document.querySelector('.carousel-inner');
+            const offset = -currentSlide * (slides[0].offsetWidth + 20); // Largura do cartão + margem
+            carouselInner.style.transform = `translateX(${offset}px)`; // Aplica a transformação
+        }
+
+        // Menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            const modal = document.getElementById('menuModal');
+            modal.style.display = 'block'; // Exibe o modal
+        });
+
+        // Fecha o modal quando o "X" é clicado
+        document.getElementById('closeModal').addEventListener('click', function() {
+            const modal = document.getElementById('menuModal');
+            modal.style.display = 'none'; // Oculta o modal
+        });
+
+        // Fecha o modal quando o usuário clica fora do modal
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('menuModal');
+            if (event.target === modal) {
+                modal.style.display = 'none'; // Oculta o modal
+            }
+        });
+    </script>
+</body>
+</html>
