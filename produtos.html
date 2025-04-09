@@ -450,7 +450,17 @@
                     <img src="Screenshot 2025-03-12 at 04-48-34 Juarez Helyon Ramos LUVA LATEX UNIGLOVES ROXA POR APENAS $28 99 TAMANHOS EP P M Instagram.png" alt="Luvas de Látex Unigloves Roxa">
                     <h3>Luvas de Látex Unigloves Roxa</h3>
                     <span class="preco">R$ 28,99</span>
-                    <p>ESGOTADO</p
+                    <p>Luvas de Látex Unigloves Roxa tamanhos disponíveis EP P M.</p>
+                    <select id="tamanho7">
+                        <option value="">Selecionar Tamanho</option>
+                        <option value="EP">EP</option>
+                        <option value="P">P</option>
+                        <option value="M">M</option>
+                    </select>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade7')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade7" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Luvas de Látex Unigloves Roxa', 28.99, document.getElementById('quantidade7').value, document.getElementById('tamanho7').value)">Adicionar ao Carrinho</button>
                     </div>
                 </div>
                 <!-- Produto 8 -->
@@ -458,17 +468,38 @@
                     <img src="Screenshot 2025-03-12 at 04-49-13 Juarez Helyon Ramos LUVA LÁTEX UNIGLOVES PRETA POR APENAS $28 99 TAMANHOS EP P M Instagram.png" alt="Luvas de Látex Unigloves Preta">
                     <h3>Luvas de Látex Unigloves Preta</h3>
                     <span class="preco">R$ 28,99</span>
-                    <p>ESGOTADO</p>
+                    <p>Luvas de Látex Unigloves Preta tamanhos disponíveis EP P M</p>
+                    <select id="tamanho8">
+                        <option value="">Selecionar Tamanho</option>
+                        <option value="EP">EP</option>
+                        <option value="P">P</option>
+                        <option value="M">M</option>
+                    </select>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade8')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade8" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Luvas de Látex Unigloves Preta', 28.99, document.getElementById('quantidade8').value, document.getElementById('tamanho8').value)">Adicionar ao Carrinho</button>
+                    </div>
                 </div>
-            </div>
                 <!-- Produto 9 -->
                 <div class="produto" data-nome="Luvas de Látex Unigloves Rosa">
                     <img src="Screenshot 2025-03-12 at 04-49-29 Juarez Helyon Ramos LUVA LÁTEX UNIGLOVES PINK $ 36 99 TAMANHOS P e M Instagram.png" alt="Luvas de Látex Unigloves Rosa">
                     <h3>Luvas de Látex Unigloves Rosa</h3>
                     <span class="preco">R$ 36,99</span>
-                    <p>ESGOTADO</p>
+                    <p>Luvas de Látex Unigloves Rosa tamanhos disponíveis P M</p>
+                    <select id="tamanho9">
+                        <option value="">Selecionar Tamanho</option>
+                        <option value="P">P</option>
+                        <option value="M">M</option>
+                    </select>
+                    <div class="quantidade-container">
+                        <button class="btn" onclick="incrementarQuantidade('quantidade9')">+</button>
+                        <input type="number" min="1" value="1" class="quantidade" id="quantidade9" style="width: 50px; text-align: center; margin: 0 10px;">
+                        <button class="btn" onclick="adicionarAoCarrinho('Luvas de Látex Unigloves Rosa', 36.99, document.getElementById('quantidade9').value, document.getElementById('tamanho9').value)">Adicionar ao Carrinho</button>
+                    </div>
                 </div>
             </div>
+        </div>
 
         <!-- Nova seção de produtos -->
         <div class="section" id="novosProdutos">
@@ -791,6 +822,15 @@
         let contador = 0;
 
         function adicionarAoCarrinho(nome, preco, quantidade, cor = '') {
+            // Verifica se a quantidade é 10 ou mais e ajusta o preço
+            if (quantidade >= 10) {
+                if (nome.includes("Luvas de Látex Unigloves")) {
+                    preco = 28.99; // Preço promocional para Unigloves
+                } else if (nome.includes("Luva Safemax/Supermax")) {
+                    preco = 25.99; // Preço promocional para Safemax
+                }
+            }
+
             const item = { nome, preco, quantidade, cor };
             carrinho.push(item);
             contador += parseInt(quantidade);
